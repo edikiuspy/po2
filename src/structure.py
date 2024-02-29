@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pydantic
 from enum import Enum
 
@@ -9,6 +11,7 @@ class Group(str, Enum):
 
 
 class User(pydantic.BaseModel):
+    id: Optional[int] = None
     firstName: str
     lastName: str
     birthYear: int

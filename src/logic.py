@@ -1,4 +1,4 @@
-import structure
+import po2.src.structure as structure
 
 
 class Logic:
@@ -9,8 +9,8 @@ class Logic:
         return self.users
 
     def add_user(self, user):
-        user = structure.User(**user)
-        self.users.append(user.json())
+        user = structure.User(**user,id=len(self.users)+1)
+        self.users.append(user.dict())
 
     def get_user(self, user_id):
         for user in self.users:

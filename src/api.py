@@ -1,5 +1,5 @@
 import flask
-from logic import Logic
+from po2.src.logic import Logic
 
 app = flask.Flask(__name__)
 logic = Logic()
