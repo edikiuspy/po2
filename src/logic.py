@@ -21,7 +21,7 @@ class Logic:
     def update_user(self, user_id, user):
         for i in range(len(self.users)):
             if self.users[i]['id'] == user_id:
-                self.users[i] = user
+                self.users[i] = structure.User(**user,id=user_id).dict()
                 return
 
     def delete_user(self, user_id):
