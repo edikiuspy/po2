@@ -1,5 +1,7 @@
 import pytest
-from po2.src.structure import User,Group
+
+from po2.src.api import validate_user
+from po2.src.structure import Group
 from po2.src.logic import Logic
 
 @pytest.fixture
@@ -37,6 +39,6 @@ def test_delete_user(logic):
 
 def test_validate_user(logic):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
-    assert logic.validate_user(user)
+    assert validate_user(user)
     invalid_user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "userr"}
-    assert not logic.validate_user(invalid_user)
+    assert not validate_user(invalid_user)

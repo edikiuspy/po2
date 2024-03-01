@@ -30,9 +30,4 @@ class Logic:
                 del self.users[i]
                 return True
 
-    def validate_user(self, user):
-        try:
-            structure.User(**user)
-            return True
-        except structure.pydantic.ValidationError:
-            return False
+

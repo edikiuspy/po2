@@ -1,10 +1,18 @@
 import flask
+
+from po2.src import structure
 from po2.src.logic import Logic
 
 app = flask.Flask(__name__)
 logic = Logic()
 
 
+def validate_user(user):
+    try:
+        structure.User(**user)
+        return True
+    except structure.pydantic.ValidationError:
+        return False
 @app.route('/users', methods=['GET'])
 def get_users():
     return logic.get_users(), 200
@@ -14,7 +22,7 @@ def add_user():
     data = flask.request.json
     if not data:
         return {"error": "Nie podano danych"}, 400
-    if not logic.validate_user(data):
+    if not validate_user(data):
         return {"error": "Nie znaleziono użytkownika"}, 400
     logic.add_user(data)
     return {}, 201
@@ -31,7 +39,7 @@ def update_user(user_id):
     data = flask.request.json
     if not data:
         return {"error": "Nie podano danych"}, 400
-    if not logic.validate_user(data):
+    if not validate_user(data):
         return {"error": "Błąd walidacji"}, 400
     return logic.update_user(user_id, data), 200
 
