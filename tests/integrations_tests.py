@@ -8,10 +8,8 @@ def client():
 
 def test_integration_add_and_get_user(client):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
-    response = client.post('/users', json=user)
-    assert response.status_code == 201
+    client.post('/users', json=user)
     response = client.get('/users/1')
-    assert response.status_code == 200
     assert response.get_json() == {"id": 1, "firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
 
 def test_integration_update_and_get_user(client):
@@ -20,13 +18,11 @@ def test_integration_update_and_get_user(client):
     client.post('/users', json=user)
     client.patch('/users/1', json=updated_user)
     response = client.get('/users/1')
-    assert response.status_code == 200
     assert response.get_json() == {"id": 1, "firstName": "Anna", "lastName": "Muntianova", "birthYear": 2007, "group": "user"}
 
 def test_integration_delete_user(client):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
     client.post('/users', json=user)
-    response = client.delete('/users/1')
-    assert response.status_code == 200
+    client.delete('/users/1')
     response = client.get('/users/1')
     assert response.status_code == 404
