@@ -28,7 +28,7 @@ class Logic:
         for i in range(len(self.users)):
             if self.users[i]['id'] == user_id:
                 del self.users[i]
-                return
+                return True
 
     def validate_user(self, user):
         try:

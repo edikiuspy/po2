@@ -12,7 +12,7 @@ def test_get_users(logic):
 def test_add_user(logic):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
     logic.add_user(user)
-    expected_user = {"id": 1, "firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": User.Group.user}
+    expected_user = {"id": 1, "firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": Group("user")}
     assert logic.get_users() == [expected_user]
 
 def test_get_user(logic):
@@ -23,9 +23,10 @@ def test_get_user(logic):
 
 def test_update_user(logic):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
-    updated_user = {"firstName": "Anna", "lastName": "Muntianova", "birthYear": 2007, "group": "user"}
+    updated_user = {"firstName": "Anna", "lastName": "Muntianova", "birthYear": 2007, "group": Group("user")}
     logic.add_user(user)
     logic.update_user(1, updated_user)
+    updated_user['id'] = 1
     assert logic.get_user(1) == updated_user
 
 def test_delete_user(logic):
@@ -37,5 +38,5 @@ def test_delete_user(logic):
 def test_validate_user(logic):
     user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "user"}
     assert logic.validate_user(user)
-    invalid_user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": "2007", "group": "user"}
+    invalid_user = {"firstName": "Eduard", "lastName": "Muntianov", "birthYear": 2007, "group": "userr"}
     assert not logic.validate_user(invalid_user)
